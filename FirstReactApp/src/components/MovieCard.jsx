@@ -1,23 +1,34 @@
 import "../css/MovieCard.css";
+import { useMovieContext } from "../contexts/MovieContext";
+import { useNavigate } from "react-router-dom";
 
 function MovieCard({ movie }) {
-  function onFavoriteClick() {
-    alert("clicked");
+  const { isFavorites, addToFavorite, removeFromFavorites } = useMovieContext();
+  const favorite = isFavorites(movie.imdbID);
+  const navigate = useNavigate(); // Використовуємо `useNavigate` для переходу
+
+  function onFavoriteClick(e) {
+    e.preventDefault();
+    if (favorite) removeFromFavorites(movie.imdbID);
+    else addToFavorite(movie);
   }
 
   return (
     <div className="movie-card">
       <div className="movie-poster">
-        <img src={movie.url} alt={movie.title} />
+        <img src={movie.Poster} alt={movie.Title} />
       </div>
       <div className="movie-overlay">
-        <button className="favorite-btn" onClick={onFavoriteClick}>
+        <button
+          className={`favorite-btn ${favorite ? "active" : ""} `}
+          onClick={onFavoriteClick}
+        >
           ♡
         </button>
       </div>
       <div className="movie-info">
-        <h3>{movie.title}</h3>
-        <p>{movie.release_date}</p>
+        <h3>{movie.Title}</h3>
+        <p>{movie.Year}</p>
       </div>
     </div>
   );
