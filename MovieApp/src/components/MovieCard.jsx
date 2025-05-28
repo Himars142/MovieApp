@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function MovieCard({ movie }) {
   const { isFavorites, addToFavorite, removeFromFavorites } = useMovieContext();
   const favorite = isFavorites(movie.imdbID);
-  const navigate = useNavigate(); // Використовуємо `useNavigate` для переходу
+  const navigate = useNavigate(); 
 
   function onFavoriteClick(e) {
     e.preventDefault();
